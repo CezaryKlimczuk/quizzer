@@ -1,8 +1,15 @@
 from django.db import models
 
+class Category(models.Model):
+    name = models.CharField(max_length=40)
+
+    def __str__(self):
+        return self.name
+
 
 class Quiz(models.Model):
     name = models.CharField(max_length=40)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
     times_taken = models.IntegerField(default=0)
@@ -10,6 +17,7 @@ class Quiz(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Question(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
