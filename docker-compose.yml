@@ -1,0 +1,13 @@
+services:
+  web:
+    container_name: quizzer_container
+    build: .
+    command: uv run python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      # - ./.venv:/tmp/.venv
+    environment:
+      - DEBUG=1
+      - ALLOWED_HOSTS=localhost
