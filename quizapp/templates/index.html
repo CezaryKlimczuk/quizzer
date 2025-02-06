@@ -1,1 +1,9 @@
 <h1>Hello to Quizzer!</h1>
+
+<h2>Here are the available quizzes:</h2>
+
+<ul>
+    {% for quiz in quizzes %}
+        <li><a href="quiz/{{ quiz.id }}">{{ quiz.name }}</a></li>
+    {% endfor %}
+</ul>
