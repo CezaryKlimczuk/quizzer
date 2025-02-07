@@ -1,0 +1,66 @@
+<!-- In your base template head -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Before closing </body> tag -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- quizzes/templates/navbar.html -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+  <div class="container">
+    <!-- Brand -->
+    <a class="navbar-brand fw-bold" href="{% url 'index' %}">Quizzer</a>
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" 
+            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}">Home</a>
+        </li>
+        <!-- Categories Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categories
+          </a>
+          <div class="dropdown-menu rounded-4 p-4" style="min-width: 400px;">
+            <div class="d-grid" style="grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+              {% for category in categories %}
+                <div>
+                  <div class="h5 mb-2">{{ category.name }}</div>
+                  <ul class="nav flex-column gap-6 mt-0">
+                    {% for quiz in category.quizzes.all %}
+                      <li class="pt-1">
+                        <a class="nav-link hover-effect-underline d-inline fw-normal p-0" href="{% url 'quiz' quiz.id %}">
+                          {{ quiz.name }}
+                        </a>
+                      </li>
+                    {% empty %}
+                      <li class="pt-1">No quizzes available.</li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}">Leaderboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}">Create Quiz</a>
+        </li>
+      </ul>
+      <!-- Authentication buttons -->
+      <div class="d-flex">
+        <a class="btn btn-outline-primary me-2" href="{% url 'index' %}">Sign Up</a>
+        <a class="btn btn-primary" href="{% url 'index' %}">Log In</a>
+      </div>
+    </div>
+  </div>
+</nav>
