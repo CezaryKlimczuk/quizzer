@@ -9,7 +9,7 @@ class Category(models.Model):
 
 class Quiz(models.Model):
     name = models.CharField(max_length=40)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name='quizzes', on_delete=models.CASCADE)
     description = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
     times_taken = models.IntegerField(default=0)
