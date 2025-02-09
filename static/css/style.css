@@ -237,7 +237,7 @@
    }
    
    .category-card:hover {
-     transform: translateY(-5px);
+     transform: translateY(-10px);
      background-color: var(--color-table-even-row);
    }
    
@@ -273,7 +273,7 @@
    }
    
    .quiz-card:hover {
-     transform: scale(1.02);
+     transform: scale(1.05);
    }
    
    .quiz-card img {
