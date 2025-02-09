@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+  <!-- Large Category Banner -->
+  <section id="category-banner" 
+           style="background: url('{% static 'images/banners/banner-' %}{{ category.name }}.jpg') center center / cover no-repeat;
+                  padding: 4rem 0; position: relative;">
+    <div class="container" style="text-align: center; color: #fff; position: relative; z-index: 1;">
+      <h1 style="font-size: 3rem; margin-bottom: 1rem;">{{ category.name }}</h1>
+      {% if category.description %}
+        <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;">{{ category.description }}</p>
+      {% endif %}
+      <button id="subscribeBtn" 
+              style="margin-top: 1.5rem; padding: 0.8rem 2rem; background-color: var(--color-primary); color: white;
+                     border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem;">
+        Subscribe to Category
+      </button>
+    </div>
+    <!-- Optional overlay gradient -->
+    <div style="position: absolute; top:0; left:0; width:100%; height:100%; 
+                background: linear-gradient(to bottom right, rgba(0,0,0,0.5), rgba(0,0,0,0.3));">
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- Featured Quiz Section -->
+    {% if featured_quizzes %}
+      <section id="featured-quiz" style="margin-top: 3rem;">
+        <h2>Featured Quiz</h2>
+
+        {% for featured_quiz in featured_quizzes %}
+          <div class="quiz-card" style="display: flex; margin-top: 1rem;">
+            <img src="{% static 'images/quizzes/' %}{{ featured_quiz.name }}.jpg" alt="{{ featured_quiz.name }}" onerror="this.onerror=null;this.src='https://picsum.photos/300/200?random={{ featured_quiz.id }}';"
+                 style="width: 280px; height: 200px; object-fit: cover; border-radius: 12px 0 0 12px;">
+            <div class="info" style="padding: 1rem; flex: 1;">
+              <h4>{{ featured_quiz.name }}</h4>
+              <p>{{ featured_quiz.description|truncatewords:20 }}</p>
+              <p style="font-size: 0.9rem; color: var(--color-text-secondary);">
+                Times taken: {{ featured_quiz.times_taken }} <br>
+                High score: {{ featured_quiz.high_score }}
+              </p>
+              <a href="{% url 'home' %}">
+                <button>Take Quiz</button>
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      </section>
+    {% endif %}
+
+    <!-- All Quizzes in Category -->
+    <section id="category-quizzes" style="margin-top: 3rem;">
+      <h2>All Quizzes in {{ category.name }}</h2>
+      <div class="quiz-examples" style="margin-top: 2rem;">
+        {% for quiz in category.quizzes.all %}
+          <div class="quiz-card" id="quiz-card-{{ quiz.id }}">
+            <img src="{% static 'images/quizzes/' %}{{ quiz.name }}.jpg" alt="{{ quiz.name }}" onerror="this.onerror=null;this.src='https://picsum.photos/300/200?random={{ quiz.id }}';">
+            <div class="info">
+              <h4>{{ quiz.name }}</h4>
+              <p>{{ quiz.description|truncatewords:12 }}</p>
+              <p style="font-size: 0.9rem; color: var(--color-text-secondary);">
+                Times taken: {{ quiz.times_taken }} <br>
+                High score: {{ quiz.high_score }}
+              </p>
+              <button onclick="toggleMoreInfo({{ quiz.id }})">
+                More info
+              </button>
+              <div id="extended-{{ quiz.id }}" style="display:none; margin-top: 0.5rem; font-size: 0.9rem;">
+                <p>Created on: {{ quiz.date_created|date:"Y-m-d" }}</p>
+                <!-- Add more details if desired -->
+              </div>
+              <a href="{% url 'home' %}">
+                <button style="margin-left: 0.5rem;">Take Quiz</button>
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- Most Popular Quizzes in Category -->
+    {% if category.quizzes.all %}
+      <section id="popular-quizzes" style="margin-top: 3rem;">
+        <h2>Most Popular Quizzes</h2>
+        <ul style="list-style-type: none; margin-top: 1rem;">
+          {% for quiz in category.quizzes.all|dictsortreversed:"times_taken"|slice:5 %}
+            <li style="margin-bottom: 0.5rem;">
+              <strong>{{ quiz.name }}</strong> - {{ quiz.times_taken }} takes
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+
+    <!-- Category-Specific Leaderboard (Example) -->
+    <section id="category-leaderboard" style="margin-top: 3rem;">
+      <h2>{{ category.name }} Leaderboard</h2>
+      <table class="leaderboard-table" style="margin-top: 1rem;">
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Quiz</th>
+            <th>High Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- This is just an example row. Replace with real data from your model/logic. -->
+          <tr>
+            <td>Player1</td>
+            <td>Some Quiz</td>
+            <td>95</td>
+          </tr>
+          <tr>
+            <td>Player2</td>
+            <td>Another Quiz</td>
+            <td>90</td>
+          </tr>
+          <tr>
+            <td>Player3</td>
+            <td>Random Quiz</td>
+            <td>88</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </div> <!-- end .container -->
+
+  <!-- Footer (Optional if you have a base.html) -->
+  <footer>
+    <p>&copy; 2025 Quizzer. All rights reserved.</p>
+  </footer>
+
+  <!-- Basic Interactivity Scripts -->
+  <script>
+    // Toggle extended quiz info
+    function toggleMoreInfo(quizId) {
+      const extendedDiv = document.getElementById(`extended-${quizId}`);
+      if (extendedDiv.style.display === 'none' || !extendedDiv.style.display) {
+        extendedDiv.style.display = 'block';
+      } else {
+        extendedDiv.style.display = 'none';
+      }
+    }
+
+    // Simulate subscribe/unsubscribe
+    const subscribeBtn = document.getElementById('subscribeBtn');
+    let subscribed = false;
+    if(subscribeBtn) {
+      subscribeBtn.addEventListener('click', function() {
+        subscribed = !subscribed;
+        subscribeBtn.textContent = subscribed ? 'Unsubscribe' : 'Subscribe to Category';
+        subscribeBtn.style.backgroundColor = subscribed ? 'green' : 'var(--color-primary)';
+      });
+    }
+  </script>
+
+{% endblock %}
