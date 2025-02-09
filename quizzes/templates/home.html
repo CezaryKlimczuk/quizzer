@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
@@ -17,57 +18,37 @@
   <section id="categories">
     <h2>Quiz Categories</h2>
     <div class="category-cards">
-      <div class="category-card">
-        <h3>Pop Culture</h3>
-        <p>Music, movies, and memes. Let’s see if you’re up to date!</p>
-      </div>
-      <div class="category-card">
-        <h3>Sports</h3>
-        <p>From football to foosball, put your sports IQ to the test.</p>
-      </div>
-      <div class="category-card">
-        <h3>History</h3>
-        <p>Dive into the past with tricky historical trivia!</p>
-      </div>
-      <div class="category-card">
-        <h3>Science</h3>
-        <p>Go full nerd with astronomy, biology, chemistry, and more.</p>
-      </div>
+      {% for category in categories %}
+        <div class="category-card">
+            <h3>{{ category.name }}</h3>
+            <p>{{ category.description }}</p>
+        </div>
+      {% endfor %}
     </div>
   </section>
 
   <!-- EXAMPLE QUIZZES SECTION -->
   <section id="example-quizzes">
     <h2>Check Out These Quizzes</h2>
-    <div class="quiz-examples">
-      <div class="quiz-card">
-        <img src="https://picsum.photos/400/200?random=1" alt="Quiz 1">
-        <div class="info">
-          <h4>Movie Mania</h4>
-          <p>Test your blockbuster knowledge in this epic quiz.</p>
-          <button>Take Quiz</button>
-        </div>
+    {% if quizzes %}
+      <div class="quiz-examples">
+        {% for quiz in quizzes %}
+          <div class="quiz-card">
+            <img src="{% static 'images/quizzes/' %}{{ quiz.name }}.jpg" alt="{{ quiz.name }}">
+            <div class="info">
+              <h4>{{ quiz.name }}</h4>
+              <p>{{ quiz.description }}</p>
+              <button href="{% url 'quiz' quiz.id %}">Take Quiz</button>
+            </div>
+          </div>
+        {% endfor %}
       </div>
-      <div class="quiz-card">
-        <img src="https://picsum.photos/400/200?random=2" alt="Quiz 2">
-        <div class="info">
-          <h4>World Capitals</h4>
-          <p>Think you know your geography? Prove it!</p>
-          <button>Take Quiz</button>
-        </div>
-      </div>
-      <div class="quiz-card">
-        <img src="https://picsum.photos/400/200?random=3" alt="Quiz 3">
-        <div class="info">
-          <h4>Logical Brain-Benders</h4>
-          <p>Put your puzzle-solving skills to the test.</p>
-          <button>Take Quiz</button>
-        </div>
-      </div>
-    </div>
+    {% else %}
+      <p>No quizzes available.</p>
+    {% endif %}
   </section>
 
-  <!-- LEADERBOARD SECTION -->
+  <!-- LEADERBOARD SECTION PLACEHOLDER -->
   <section id="leaderboard">
     <h2>Leaderboard</h2>
     <table class="leaderboard-table">
