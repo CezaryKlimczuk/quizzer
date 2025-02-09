@@ -3,9 +3,9 @@ from django.shortcuts import render
 from .models import Category, Question
 
 # Create your views here.
-def index(request):
+def home(request):
     categories = Category.objects.all()
-    return render(request, 'index.html', {'categories': categories})
+    return render(request, 'home.html', {'categories': categories})
 
 def quiz(request, quiz_id: int):
     quiz_questions = Question.objects.filter(quiz=quiz_id)

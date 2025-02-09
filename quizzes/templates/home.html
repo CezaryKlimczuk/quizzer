@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section id="hero">
+  <h1>Challenge Yourself, Endless Fun!</h1>
+  <p>Test your knowledge with quirky quizzes and challenge your friends!</p>
+  <button onclick="alert('Start Quiz Button Clicked!')">
+    Start a Quiz Now
+  </button>
+</section>
+
+<!-- MAIN CONTENT CONTAINER -->
+<main class="container">
+  <!-- CATEGORIES SECTION -->
+  <section id="categories">
+    <h2>Quiz Categories</h2>
+    <div class="category-cards">
+      <div class="category-card">
+        <h3>Pop Culture</h3>
+        <p>Music, movies, and memes. Let’s see if you’re up to date!</p>
+      </div>
+      <div class="category-card">
+        <h3>Sports</h3>
+        <p>From football to foosball, put your sports IQ to the test.</p>
+      </div>
+      <div class="category-card">
+        <h3>History</h3>
+        <p>Dive into the past with tricky historical trivia!</p>
+      </div>
+      <div class="category-card">
+        <h3>Science</h3>
+        <p>Go full nerd with astronomy, biology, chemistry, and more.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXAMPLE QUIZZES SECTION -->
+  <section id="example-quizzes">
+    <h2>Check Out These Quizzes</h2>
+    <div class="quiz-examples">
+      <div class="quiz-card">
+        <img src="https://picsum.photos/400/200?random=1" alt="Quiz 1">
+        <div class="info">
+          <h4>Movie Mania</h4>
+          <p>Test your blockbuster knowledge in this epic quiz.</p>
+          <button>Take Quiz</button>
+        </div>
+      </div>
+      <div class="quiz-card">
+        <img src="https://picsum.photos/400/200?random=2" alt="Quiz 2">
+        <div class="info">
+          <h4>World Capitals</h4>
+          <p>Think you know your geography? Prove it!</p>
+          <button>Take Quiz</button>
+        </div>
+      </div>
+      <div class="quiz-card">
+        <img src="https://picsum.photos/400/200?random=3" alt="Quiz 3">
+        <div class="info">
+          <h4>Logical Brain-Benders</h4>
+          <p>Put your puzzle-solving skills to the test.</p>
+          <button>Take Quiz</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERBOARD SECTION -->
+  <section id="leaderboard">
+    <h2>Leaderboard</h2>
+    <table class="leaderboard-table">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>User</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Alice</td>
+          <td>1890</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Bob</td>
+          <td>1720</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Chris</td>
+          <td>1680</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Dana</td>
+          <td>1590</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+
+{% endblock %}
