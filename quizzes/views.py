@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .models import Category, Quiz, Question
 
@@ -15,5 +15,5 @@ def category(request, category_id: int):
     return render(request, 'category.html', {'category': category, 'quizzes': quizzes, 'featured_quizzes': featured_quizzes})
 
 def quiz(request, quiz_id: int):
-    quiz_questions = Question.objects.filter(quiz=quiz_id)
-    return render(request, 'quiz.html', context={'questions': quiz_questions})
+    quiz = get_object_or_404(Quiz, id=quiz_id)
+    return render(request, 'quiz.html', {'quiz': quiz})

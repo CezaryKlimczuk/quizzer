@@ -25,10 +25,13 @@ SECRET_KEY = 'django-insecure-0_$q4qk&1q0s8h73#3=7w9o#(!h5)^pmr%-%@#o+vn(m@+5vop
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
+
+WSGI_APPLICATION = 'quizzer.wsgi.application'
+ASGI_APPLICATION = 'quizzer.asgi.application'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -37,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
     'quizzes.apps.QuizzesConfig'
 ]
 
@@ -68,8 +72,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'quizzer.wsgi.application'
 
 
 # Database
@@ -126,3 +128,14 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Channels
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
