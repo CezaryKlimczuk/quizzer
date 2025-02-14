@@ -17,13 +17,13 @@ from django.core.asgi import get_asgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'quizzer.settings')
 django.setup()
 
-from quizzes.routing import ws_urlpatterns
+from quizzes.urls import ws_urlpatterns # fmt: off
 
-application = ProtocolTypeRouter({
-    "http": get_asgi_application(),
-    "websocket": AuthMiddlewareStack(
-        URLRouter(
-            ws_urlpatterns
+application = ProtocolTypeRouter(
+    {
+        "http": get_asgi_application(),
+        "websocket": AuthMiddlewareStack(
+            URLRouter(ws_urlpatterns)
         )
-    ),
-})
+    }
+)
