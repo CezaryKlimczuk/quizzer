@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path
 
 from .views import home, category, quiz
 from .consumers import QuizConsumer
@@ -10,5 +10,5 @@ urlpatterns = [
 ]
 
 ws_urlpatterns = [
-    re_path(r'ws/quiz/(?P<quiz_id>\d+)/$', QuizConsumer.as_asgi()),
+    path('ws/quiz/<int:quiz_id>/', QuizConsumer.as_asgi()),
 ]
