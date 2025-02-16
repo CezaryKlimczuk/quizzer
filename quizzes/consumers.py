@@ -1,18 +1,31 @@
 import json
-from channels.generic.websocket import AsyncWebsocketConsumer
+from django.core.cache import cache
 from asgiref.sync import sync_to_async
+from channels.generic.websocket import AsyncWebsocketConsumer
 
 from .models import Quiz, Question
 
 class QuizConsumer(AsyncWebsocketConsumer):
     async def connect(self):
+        # Get the quiz ID from the URL and create a group name
         self.quiz_id = self.scope['url_route']['kwargs']['quiz_id']
         self.group_name = f"quiz_{self.quiz_id}"
-        await self.channel_layer.group_add(
-            self.group_name,
-            self.channel_name
-        )
+        await self.channel_layer.group_add(self.group_name, self.channel_name)
         await self.accept()
+
+        # Increment the user count in the cache and send the updated count to the group
+        await self.change_user_count(1)
+        user_count = await sync_to_async(cache.get)(f"{self.group_name}_count")
+        print(f"The current user count is: {user_count}")
+        await self.broadcast_user_count(user_count)
+
+
+    async def disconnect(self, close_code):
+        print(f"The close code was {close_code}")
+        await self.channel_layer.group_discard(self.group_name, self.channel_name)
+        await self.change_user_count(-1)
+        user_count = await sync_to_async(cache.get)(f"{self.group_name}_count")
+        await self.broadcast_user_count(user_count)
 
     async def receive(self, text_data):
         data = json.loads(text_data)
@@ -23,6 +36,30 @@ class QuizConsumer(AsyncWebsocketConsumer):
             user_answer = data.get('answer_text')
             await self.process_answer(question_id, user_answer)
             await self.send_next_question()
+
+    async def change_user_count(self, delta):
+        key = f"{self.group_name}_count"
+        count = cache.get(key, 0)
+        count += delta
+        cache.set(key, count)
+
+    async def broadcast_user_count(self, user_count):
+        await self.channel_layer.group_send(
+            self.group_name,
+            {
+                "type": "update_user_count",
+                "active_users": user_count,
+            }
+        )
+
+    async def update_user_count(self, event):
+        await self.send(
+            text_data=json.dumps({
+                "action": "user_count",
+                "active_users": event["active_users"],
+            })
+        )
+
 
     async def send_next_question(self):
         quiz = await sync_to_async(Quiz.objects.get)(pk=self.quiz_id)
