@@ -19,12 +19,12 @@
     <h2>Quiz Categories</h2>
     <div class="category-cards">
       {% for category in categories %}
-        <div class="category-card">
-          <a href="{% url 'category' category.id %}" style="text-decoration: none; color: inherit; display: block;">
+        <a href="{% url 'category' category.id %}" style="text-decoration: none; color: inherit; display: block;">
+          <div class="category-card">
             <h3>{{ category.name }}</h3>
             <p>{{ category.description }}</p>
-          </a>
-        </div>
+          </div>
+        </a>
       {% endfor %}
     </div>
   </section>
@@ -35,14 +35,15 @@
     {% if quizzes %}
       <div class="quiz-examples">
         {% for quiz in quizzes %}
-          <div class="quiz-card">
-            <img src="{% static 'images/quizzes/' %}{{ quiz.name }}.jpg" alt="{{ quiz.name }}">
-            <div class="info">
-              <h4>{{ quiz.name }}</h4>
-              <p>{{ quiz.description }}</p>
-              <button href="{% url 'quiz' quiz.id %}">Take Quiz</button>
+          <a href="{% url 'quiz' quiz.id %}" style="text-decoration: none; color: inherit; display: block;">
+            <div class="quiz-card">
+              <img src="{% static 'images/quizzes/' %}{{ quiz.name }}.jpg" alt="{{ quiz.name }}">
+              <div class="info">
+                <h4>{{ quiz.name }}</h4>
+                <p>{{ quiz.description }}</p>
+              </div>
             </div>
-          </div>
+          </a>
         {% endfor %}
       </div>
     {% else %}
