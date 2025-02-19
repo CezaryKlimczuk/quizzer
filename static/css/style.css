@@ -42,8 +42,6 @@
    body {
      font-family: 'Signika Negative', sans-serif;
      color: var(--color-text-primary);
-     background: url('/static/playful-background.jpg') center center / cover no-repeat;
-     /* Fallback background color if image not loaded */
      background-color: var(--color-background-fallback);
      /* Adds a subtle animation effect to the background, optional */
      animation: floatBackground 8s ease-in-out infinite alternate;
