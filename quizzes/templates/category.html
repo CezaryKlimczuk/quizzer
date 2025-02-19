@@ -40,7 +40,8 @@
               <p>{{ featured_quiz.description|truncatewords:20 }}</p>
               <p style="font-size: 0.9rem; color: var(--color-text-secondary);">
                 Times taken: {{ featured_quiz.times_taken }} <br>
-                High score: {{ featured_quiz.high_score }}
+                High score: {{ featured_quiz.high_score }} <br>
+                Currently solved by: <span id="quizUserCounterId{{ featured_quiz.id }}">0</span> people.
               </p>
               <a href="{% url 'home' %}">
                 <button>Take Quiz</button>

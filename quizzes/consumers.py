@@ -47,12 +47,21 @@ class QuizConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_send(
             self.group_name,
             {
-                "type": "update_user_count",
+                "type": "quiz_user_count_update",
                 "active_users": user_count,
             }
         )
 
-    async def update_user_count(self, event):
+        await self.channel_layer.group_send(
+            "global_notification_group",
+            {
+                "type": "quiz_user_count_update",
+                "quiz_id": self.quiz_id,
+                "active_users": user_count,
+            }
+        )
+
+    async def quiz_user_count_update(self, event):
         await self.send(
             text_data=json.dumps({
                 "action": "user_count",
@@ -101,3 +110,33 @@ class QuizConsumer(AsyncWebsocketConsumer):
             self.score += 1
 
         await sync_to_async(question.save)()
+
+
+class GlobalNotificationConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+        self.group_name = "global_notification_group"
+        await self.channel_layer.group_add(self.group_name, self.channel_name)
+        await self.accept()
+
+    async def disconnect(self, close_code):
+        await self.channel_layer.group_discard(self.group_name, self.channel_name)
+
+    async def receive(self, text_data):
+        data = json.loads(text_data)
+
+        if data.get("action") == "request_initial_counts":
+            quiz_ids = data["quiz_ids"]
+
+            for quiz_id in quiz_ids:
+                quiz_users = await sync_to_async(cache.get)(f"quiz_{quiz_id}_count", 0)
+
+                await self.send(text_data=json.dumps({
+                    "quiz_id": quiz_id,
+                    "active_users": quiz_users
+                }))
+
+    async def quiz_user_count_update(self, event):
+        await self.send(text_data=json.dumps({
+            "quiz_id": event["quiz_id"],
+            "active_users": event["active_users"],
+        }))
