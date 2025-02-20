@@ -29,8 +29,11 @@
     <!-- Featured Quiz Section -->
     {% if featured_quizzes %}
       <section id="featured-quiz" style="margin-top: 3rem;">
-        <h2>Featured Quiz</h2>
-
+        {% if featured_quizzes|length == 1 %}
+          <h2>Featured Quiz</h2>
+        {% else %}
+          <h2>Featured Quizzes</h2>
+        {% endif %}
         {% for featured_quiz in featured_quizzes %}
           <div class="quiz-card" style="display: flex; margin-top: 1rem;">
             <img src="{% static 'images/quizzes/' %}{{ featured_quiz.name }}.jpg" alt="{{ featured_quiz.name }}" onerror="this.onerror=null;this.src='https://picsum.photos/300/200?random={{ featured_quiz.id }}';"
