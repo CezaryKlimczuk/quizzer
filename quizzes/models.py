@@ -12,7 +12,7 @@ class Category(models.Model):
 class Quiz(models.Model):
     name = models.CharField(max_length=40)
     featured = models.BooleanField(default=False)
-    cateogry_featured = models.BooleanField(default=False)
+    category_featured = models.BooleanField(default=False)
     category = models.ForeignKey(Category, related_name='quizzes', on_delete=models.CASCADE)
     description = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
