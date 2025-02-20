@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 
-from .models import Category, Quiz, Question
+from .models import Category, Quiz
 
 # Create your views here.
 def home(request):
@@ -13,6 +13,10 @@ def category(request, category_id: int):
     featured_quizzes = Quiz.objects.filter(category=category_id, category_featured=True)
     category = Category.objects.get(id=category_id)
     return render(request, 'category.html', {'category': category, 'quizzes': quizzes, 'featured_quizzes': featured_quizzes})
+
+def categories_all(request):
+    categories = Category.objects.all()
+    return render(request, 'categories_all.html', {'categories': categories})
 
 def quiz(request, quiz_id: int):
     quiz = get_object_or_404(Quiz, id=quiz_id)

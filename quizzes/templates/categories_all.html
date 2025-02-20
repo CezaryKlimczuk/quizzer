@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="categories-all-banner" 
+         style="background: url('{% static "images/banners/banner-AllCategories.jpg" %}') center center / cover no-repeat; 
+                height: 350px; 
+                position: relative; 
+                margin-bottom: 2rem;">
+  <div class="container" style="text-align: center; color: #fff; position: relative; z-index: 1; padding: 4rem 0;">
+    <h1 style="font-size: 3rem;">All Categories</h1>
+    <p>Pick a Category that suits you, or discover something new!</p>
+  </div>
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3);">
+  </div>
+</section>
+
+<!-- MAIN CONTENT FOR ALL CATEGORIES -->
+<div class="container categories-all-page">
+  <h2 class="all-categories-heading">Pick a Category That Sparks Joy</h2>
+  <p class="all-categories-subtext">
+    Scroll, flip, and discover. There’s a quiz for every curious mind!
+  </p>
+  
+  <!-- GRID OF FLIP CARDS -->
+  <div class="categories-all-grid">
+    {% for category in categories %}
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+            <div class="title-bar">
+                <h3>{{ category.name }}</h3>
+            </div>
+            <div class="image-container">
+                <img src="{% static "images/categories/" %}{{ category.name }}.jpg" alt="{{ category.name }}" class="flip-card-img" loading="lazy">
+            </div>
+        </div>
+        <div class="flip-card-back">
+            <h4>{{ category.name }}</h4>
+            <p>{{ category.description|truncatewords:20 }}</p>
+            <a class="flip-button" href="{% url 'category' category.id %}">
+                Explore
+            </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
