@@ -5,6 +5,7 @@ let timerInterval = null;
 
 const startQuizBtn = document.getElementById("startQuizBtn");
 const quizContainer = document.getElementById("quizContainer");
+const introContainer = document.getElementById("introContainer");
 const participantCounter = document.getElementById("participantCounter").querySelector("span");
 const questionText = document.getElementById("questionText");
 const answerInput = document.getElementById("answerInput");
@@ -46,6 +47,7 @@ startQuizBtn.addEventListener("click", () => {
   quizSocket.send(JSON.stringify({ action: "start_quiz" }));
   startQuizBtn.style.display = "none";
   quizContainer.style.display = "block";
+  introContainer.style.display = "none";
 });
 
 submitAnswerBtn.addEventListener("click", () => {

@@ -1,27 +1,124 @@
 {% extends 'base.html' %}
-{% block content %}
 {% load static %}
 
-<h2>{{ quiz.name }}</h2>
-<div id="participantCounter">
-  Participants: <span id="participantCount">--</span>
+{% block content %}
+
+<!-- Outer container to hold both the quiz pane (left) and a decorative pane (right) -->
+<div class="quiz-page-container">
+
+
+  <!-- Left Pane: Main Quiz Content -->
+  <div class="quiz-left-pane">
+
+    
+    <!-- Quiz Title and Basic Info -->
+    <div class="quiz-header">
+      <h1 class="quiz-title">{{ quiz.name }}</h1>
+      <div class="quiz-participants">
+        <div id="participantCounter">
+          Participants: <span>--</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ADD: Intro container that shows up by default and disappears once quiz starts -->
+    <div id="introContainer" class="intro-container" style="display: block;">
+      <p>
+        Get ready to test your knowledge! When you click "Start Quiz", we’ll load each question with a time limit. 
+        Don’t let the clock run out!
+      </p>
+    </div>
+
+    <!-- Start Button -->
+    <button 
+      id="startQuizBtn" 
+      data-quiz-id="{{ quiz.id }}" 
+      class="start-quiz-btn">
+      Start Quiz
+    </button>
+
+    <!-- The Quiz Container (initially hidden) -->
+    <div id="quizContainer" class="quiz-container" style="display: none;">
+      <!-- Timer Display -->
+      <!-- Current Question -->
+      <div id="questionHeader" class="question-header">
+        <h2 id="questionText" class="question-text">Question Goes Here</h2>
+        <div id="timer" class="quiz-timer">
+          Time left: <span>--</span> seconds
+        </div>
+      </div>
+      
+      <!-- User's Answer Input + Submit -->
+      <div class="answer-area">
+        <input 
+          type="text" 
+          id="answerInput" 
+          placeholder="Type your answer..." 
+          class="answer-input" />
+        <button 
+          id="submitAnswerBtn" 
+          class="answer-submit-btn">
+          Submit
+        </button>
+      </div>
+
+    </div>
+
+    <!-- The Results Container (shown after quiz ends) -->
+    <div id="resultsContainer" class="results-container" style="display: none;">
+      <h2>Results</h2>
+      <p id="finalMessage"></p>
+      <!-- You could add a "Restart Quiz" button or "View Another Quiz" link here if desired -->
+    </div>
+  </div>
+
+  <div class="quiz-right-pane new-leaderboard-pane">
+    <section class="leaderboard-section">
+      <h2 class="leaderboard-title">Quiz Leaderboard</h2>
+      <div class="leaderboard-table-wrapper">
+        <table class="leaderboard-table-new">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Player</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>PlayerOne</td>
+              <td>2300</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>PlayerTwo</td>
+              <td>2200</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>PlayerThree</td>
+              <td>2100</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>PlayerFour</td>
+              <td>2050</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>PlayerFive</td>
+              <td>2000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
 </div>
 
-<button id="startQuizBtn" data-quiz-id="{{ quiz.id }}">Start Quiz</button>
+<!-- Link to the existing quiz.js file -->
+<script src="{% static 'js/quiz.js' %}"></script>
 
-<div id="quizContainer" style="display: none;">
-  <h3 id="questionText"></h3>
-  <input type="text" id="answerInput" placeholder="Type your answer here..." />
-  <button id="submitAnswerBtn">Submit</button>
-
-  <div id="timer">Time left: <span>--</span> seconds</div>
-</div>
-
-<div id="resultsContainer" style="display: none;">
-  <h3>Results</h3>
-  <p id="finalMessage"></p>
-</div>
-
-<script src="{% static 'js/quiz.js' %}">
-</script>
 {% endblock %}
