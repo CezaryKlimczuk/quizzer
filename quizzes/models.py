@@ -26,7 +26,8 @@ class Quiz(models.Model):
 class Question(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     question_text = models.CharField(max_length=200)
-    ansewer_text = models.CharField(max_length=50)
+    correct_answer_text = models.CharField(max_length=50)
+    answer_options = models.JSONField(null=True, default=list)
     date_created = models.DateTimeField(auto_now_add=True)
     answered_times = models.IntegerField(default=0)
     correct_answered_times = models.IntegerField(default=0)

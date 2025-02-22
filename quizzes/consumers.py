@@ -98,7 +98,7 @@ class QuizConsumer(AsyncWebsocketConsumer):
 
     async def process_answer(self, question_id, user_answer):
         question = await sync_to_async(Question.objects.get)(pk=question_id)
-        is_correct = (question.ansewer_text.lower() == user_answer.lower())
+        is_correct = (question.correct_answer_text.lower() == user_answer.lower())
 
         question.answered_times += 1
         if is_correct:
