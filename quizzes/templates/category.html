@@ -46,7 +46,7 @@
                 High score: {{ featured_quiz.high_score }} <br>
                 Currently solved by: <span id="quizUserCounterId{{ featured_quiz.id }}">0</span> people.
               </p>
-              <a href="{% url 'home' %}">
+              <a href="{% url 'quiz' featured_quiz.id %}">
                 <button>Take Quiz</button>
               </a>
             </div>
@@ -76,7 +76,7 @@
                 <p>Created on: {{ quiz.date_created|date:"Y-m-d" }}</p>
                 <!-- Add more details if desired -->
               </div>
-              <a href="{% url 'home' %}">
+              <a href="{% url 'quiz' quiz.id %}">
                 <button style="margin-left: 0.5rem;">Take Quiz</button>
               </a>
             </div>
