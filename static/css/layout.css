@@ -54,6 +54,7 @@ footer {
   text-align: center;
   font-size: 0.9rem;
   color: var(--color-footer-text);
+  background-color: var(--color-bg-blur);
   padding: 2rem 0;
 }
 footer a {
