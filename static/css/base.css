@@ -1,0 +1,26 @@
+/* Universal reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* GLOBAL STYLES */
+body {
+  font-family: 'Signika Negative', sans-serif;
+  color: var(--color-text-primary);
+  background-color: var(--color-background-fallback);
+
+  /* Subtle animation effect on the background */
+  animation: floatBackground 8s ease-in-out infinite alternate;
+}
+
+@keyframes floatBackground {
+  from { background-position: 50% 50%; }
+  to   { background-position: 55% 45%; }
+}
+
+h1, h2, h3 {
+  color: var(--color-heading);
+  text-shadow: 2px 2px var(--color-heading-shadow);
+}

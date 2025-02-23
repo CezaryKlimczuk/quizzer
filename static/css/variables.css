@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@400;700&display=swap');
+
+/* --------------------------------------------------------------
+   ROOT COLOR VARIABLES
+   -------------------------------------------------------------- */
+:root {
+  /* Updated color palette for a warm, quiz-oriented vibe */
+  --color-primary: #FF6700;       /* Main brand color: bold orange */
+  --color-primary-light: #FFA447; /* Lighter variant for hover & highlights */
+  --color-heading: #D35400;       /* Warm heading color (darker orange tone) */
+  --color-heading-shadow: #F5CBA7;/* Subtle, lighter shadow for headings */
+  --color-text-primary: #333;     /* Dark gray for legibility */
+  --color-text-secondary: #444;   /* Slightly lighter/different text color */
+  --color-background-fallback: #FFF3E6; /* Soft warm fallback background */
+  --color-bg-blur: rgba(255, 255, 255, 0.6);
+
+  --color-accent-1: #F39C12;      /* Accent gradient color (vibrant orange) */
+  --color-accent-2: #F8C471;      /* Accent gradient color (light warm tone) */
+  --color-accent-3: #FDEBD0;      /* Accent gradient color (very light warm) */
+  --color-white: #fff;            /* Standard white */
+  
+  --color-table-even-row: #FFF8ED;  /* Light background for even rows */
+  --color-table-hover-row: #FFECD1; /* Hover color for table rows */
+  --color-footer-text: #666;        /* Dark gray for footer text */
+
+  /* Shadow, highlight, and other shared values */
+  --box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}

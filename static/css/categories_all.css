@@ -1,0 +1,193 @@
+/* categories_all.css */
+
+/* ALL-CATEGORIES HERO SECTION */
+#all-categories-hero {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Adjust as needed */
+    overflow: hidden; 
+    background: var(--color-white);
+    margin-bottom: 2rem;
+  }
+  
+  /* Waves at the bottom of hero */
+  .wave {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 120px; /* wave height */
+    background: var(--color-primary-light);
+    border-radius: 100% 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    opacity: 0.5;
+  }
+  .wave1 {
+    bottom: 0;
+  }
+  .wave2 {
+    bottom: -60px;
+    background: var(--color-primary);
+    opacity: 0.3;
+    animation: waveFloat 5s ease-in-out infinite alternate;
+  }
+  @keyframes waveFloat {
+    from { transform: translateY(-60%); }
+    to   { transform: translateY(-40%); }
+  }
+  
+  /* Hero content inside the wave/hero area */
+  .all-categories-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--color-primary);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .all-categories-hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--color-heading);
+    text-shadow: 2px 2px var(--color-heading-shadow);
+  }
+  .all-categories-hero-content p {
+    font-size: 1.2rem;
+    color: var(--color-text-secondary);
+  }
+  .all-categories-hero-content .hero-image {
+    margin: 2rem auto 0 auto;
+    width: 200px;
+    height: 200px;
+    background: url('https://picsum.photos/200') center center / cover no-repeat;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  
+  /* MAIN CATEGORIES GRID */
+  .categories-all-page {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .all-categories-heading {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-heading);
+  }
+  .all-categories-subtext {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.4;
+  }
+  .categories-all-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+  }
+  
+  /* FLIP CARD STYLES */
+  .flip-card {
+    background: transparent;
+    width: 240px;
+    height: 280px;
+    perspective: 1000px; /* 3D space for flipping */
+  }
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s cubic-bezier(.03,.98,.52,.99);
+    transform-style: preserve-3d;
+  }
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  
+  /* FRONT & BACK of the card */
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    box-shadow: var(--box-shadow);
+    backface-visibility: hidden; /* hides the back side when flipping */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.0rem;
+    color: var(--color-white);
+  }
+  .flip-card-front {
+    display: flex;
+    flex-direction: column;
+    background: none;
+    overflow: hidden;
+  }
+  .title-bar {
+    background: linear-gradient(
+      135deg,
+      var(--color-primary) 0%,
+      var(--color-primary-light) 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 100%;
+  }
+  .title-bar h3 {
+    color: var(--color-white);
+    margin: 0;
+    font-size: 1.4rem;
+    width: 100%;
+    text-align: center;
+  }
+  .image-container {
+    flex: 1;
+  }
+  .flip-card-back {
+    background-color: var(--color-table-even-row);
+    color: var(--color-text-primary);
+    transform: rotateY(180deg);
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  .flip-card-back h4 {
+    font-size: 1.4rem;
+    color: var(--color-heading);
+  }
+  .flip-card-back p {
+    font-size: 0.95rem;
+    margin: 0.5rem 0 1rem 0;
+    color: var(--color-text-secondary);
+    padding: 1.5rem;
+  }
+  .flip-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+  }
+  .flip-button {
+    display: inline-block;
+    text-decoration: none;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    font-weight: bold;
+  }
+  .flip-button:hover {
+    background-color: var(--color-primary-light);
+  }
+  
