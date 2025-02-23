@@ -16,6 +16,7 @@ header {
   background-color: var(--color-bg-blur);
   backdrop-filter: blur(5px);
   border-radius: 12px;
+  flex-wrap: wrap;
 }
 
 .logo {
@@ -32,6 +33,7 @@ nav ul {
   display: flex;
   gap: 1rem;
   margin-right: 1rem;
+  flex-wrap: wrap;
 }
 
 nav a {
