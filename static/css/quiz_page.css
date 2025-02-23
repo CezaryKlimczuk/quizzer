@@ -1,10 +1,7 @@
 /* QUIZ PAGE CONTAINER */
 .quiz-page-container {
   display: flex;
-  padding: 3rem;
   flex-wrap: wrap; /* Responsive fallback for narrow screens */
-  gap: 0rem;
-  margin-top: 0rem;
 }
 
 /* Left pane ~60-65% width on large screens */
