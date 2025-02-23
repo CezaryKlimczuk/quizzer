@@ -1,9 +1,10 @@
 /* QUIZ PAGE CONTAINER */
 .quiz-page-container {
   display: flex;
+  padding: 3rem;
   flex-wrap: wrap; /* Responsive fallback for narrow screens */
-  gap: 2rem;
-  margin-top: 2rem;
+  gap: 0rem;
+  margin-top: 0rem;
 }
 
 /* Left pane ~60-65% width on large screens */
@@ -20,29 +21,12 @@
 .quiz-right-pane {
   flex: 1 1 35%;
   display: flex;
+  border-radius: 12px;
   justify-content: center;
   align-items: flex-start;
   position: relative;
   min-width: 300px; /* Force some space even on smaller screens */
 }
-
-.right-pane-content {
-  background-color: rgba(0,255,255,0.75);
-  border-radius: 2px;
-  padding: 0rem;
-  box-shadow: var(--box-shadow);
-  text-align: center;
-  max-width: 400px;
-  width: 100%;
-}
-
-.quiz-deco-image {
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-}
-
 
 /* Quiz header area */
 .quiz-header {
@@ -154,64 +138,4 @@
   font-size: 1rem;
   color: var(--color-text-secondary);
   line-height: 1.5;
-}
-
-/* ---------------------------------------------
-   NEW Right Pane Leaderboard Styles
-----------------------------------------------*/
-.new-leaderboard-pane {
-  flex: 1 1 35%; /* If you're keeping a two-column layout */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  position: relative;
-  background-color: var(--color-white);
-  border-radius: 12px;
-  box-shadow: var(--box-shadow);
-  margin-top: 0rem;
-  padding: 0rem;
-}
-
-.leaderboard-section {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-.leaderboard-title {
-  text-align: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  font-size: 1.6rem;
-  color: var(--color-heading);
-}
-
-.leaderboard-table-wrapper {
-  flex: 1; /* Fill remaining vertical space */
-  overflow-y: auto;
-}
-
-/* Leaderboard table with new look */
-.leaderboard-table-new {
-  width: 100%;
-  border-collapse: collapse;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: var(--box-shadow);
-}
-.leaderboard-table-new thead tr {
-  background-color: var(--color-primary);
-  color: var(--color-white);
-}
-.leaderboard-table-new th,
-.leaderboard-table-new td {
-  padding: 0.75rem 1rem;
-  text-align: left;
-}
-.leaderboard-table-new tbody tr:nth-child(even) {
-  background-color: var(--color-table-even-row);
-}
-.leaderboard-table-new tbody tr:hover {
-  background-color: var(--color-table-hover-row);
 }

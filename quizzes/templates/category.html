@@ -101,34 +101,45 @@
 
     <!-- Category-Specific Leaderboard (Example) -->
     <section id="category-leaderboard" style="margin-top: 3rem;">
-      <h2>{{ category.name }} Leaderboard</h2>
-      <table class="leaderboard-table" style="margin-top: 1rem;">
-        <thead>
-          <tr>
-            <th>Player</th>
-            <th>Quiz</th>
-            <th>High Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- This is just an example row. Replace with real data from your model/logic. -->
-          <tr>
-            <td>Player1</td>
-            <td>Some Quiz</td>
-            <td>95</td>
-          </tr>
-          <tr>
-            <td>Player2</td>
-            <td>Another Quiz</td>
-            <td>90</td>
-          </tr>
-          <tr>
-            <td>Player3</td>
-            <td>Random Quiz</td>
-            <td>88</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="leaderboard-container">
+        <h2>{{ category.name }} Leaderboard</h2>
+        <table class="leaderboard-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>User</th>
+              <th>Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Alice</td>
+              <td>1890</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Bob</td>
+              <td>1720</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Chris</td>
+              <td>1680</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Dana</td>
+              <td>1590</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Edward</td>
+              <td>1440</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
   </div> <!-- end .container -->
