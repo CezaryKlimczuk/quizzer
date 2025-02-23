@@ -1,19 +1,57 @@
 /* Distinguish login and sign-up buttons */
 .login-btn {
-    background-color: #FAF3EC;
-    border: 1px solid var(--color-primary);
-  }
-  .login-btn:hover {
-    background-color: var(--color-primary);
-    color: var(--color-white);
-  }
-  
-  .signup-btn {
-    background-color: var(--color-primary);
-    color: var(--color-white);
-  }
-  .signup-btn:hover {
-    background-color: var(--color-primary-light);
-    color: var(--color-white);
-  }
+  background-color: #FAF3EC;
+  border: 1px solid var(--color-primary);
+}
+.login-btn:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.signup-btn {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+.signup-btn:hover {
+  background-color: var(--color-primary-light);
+  color: var(--color-white);
+}
+
+
+/* Leaderboard specific section */
+.leaderboard-container {
+  text-align: center;
+  padding: 2rem;
+  border-radius: 12px;
+  position: relative;
+}
+.leaderboard-container h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+.leaderboard-table {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 800px;
+  text-align: left;
+  background-color: var(--color-white);
+  border-radius: 8px;
+  overflow: hidden;
+  border-collapse: collapse;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.leaderboard-table thead {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 0.75rem 1rem;
+}
+.leaderboard-table tbody tr:nth-child(even) {
+  background-color: var(--color-table-even-row);
+}
+.leaderboard-table tbody tr:hover {
+  background-color: var(--color-table-hover-row);
+}
   
