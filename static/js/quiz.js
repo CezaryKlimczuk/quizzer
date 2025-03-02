@@ -8,8 +8,8 @@ const quizContainer = document.getElementById("quizContainer");
 const introContainer = document.getElementById("introContainer");
 const participantCounter = document.getElementById("participantCounter").querySelector("span");
 const questionText = document.getElementById("questionText");
-const answerInput = document.getElementById("answerInput");
 const submitAnswerBtn = document.getElementById("submitAnswerBtn");
+const answerButtons = document.getElementsByClassName("answer-btn");
 const timerElement = document.getElementById("timer").querySelector("span");
 const resultsContainer = document.getElementById("resultsContainer");
 const finalMessage = document.getElementById("finalMessage");
@@ -50,15 +50,15 @@ startQuizBtn.addEventListener("click", () => {
   introContainer.style.display = "none";
 });
 
-submitAnswerBtn.addEventListener("click", () => {
-  const userAnswer = answerInput.value;
-  quizSocket.send(JSON.stringify({
-    action: "submit_answer",
-    question_id: currentQuestionId,
-    answer_text: userAnswer
-  }));
-  answerInput.value = "";
-  stopTimer();
+answerButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    quizSocket.send(JSON.stringify({
+      action: "submit_answer",
+      question_id: currentQuestionId,
+      answer_text: button.textContent
+    }));
+    stopTimer();
+  });
 });
 
 function showQuestion(data) {
