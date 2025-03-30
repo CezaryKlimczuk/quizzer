@@ -31,6 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
       showResults(data);
     } else if (data.action === "user_count") {
       participantCounter.textContent = data.active_users;
+    } else if (data.action === "answer_result") {
+      highlightUserAnswer(data.is_correct);
     }
   };
 
@@ -51,34 +53,30 @@ startQuizBtn.addEventListener("click", () => {
   introContainer.style.display = "none";
 });
 
+let lastClickedButton = null;
 [...answerButtons].forEach((button) => {
   console.log("Adding click listeners now.")
   button.addEventListener("click", () => {
+    lastClickedButton = button;
+
     // Prevent any further clicks
     [...answerButtons].forEach(b => b.disabled = true);
 
-    // Always highlight the correct button in green
-    const correctBtn = [...answerButtons].find(btn => btn.textContent === correctAnswer);
-    if (correctBtn) {
-      correctBtn.style.backgroundColor = "green";
-    }
+    // Send the answer, then let the server handle correctness
+    quizSocket.send(JSON.stringify({
+      action: "submit_answer",
+      question_id: currentQuestionId,
+      answer_text: button.textContent
+    }));
 
-    // If user clicked the wrong button, highlight it red
-    if (button.textContent !== correctAnswer) {
-      button.style.backgroundColor = "red";
-    }
-
-    // Wait 1.5s before sending the answer via WebSocket
-    setTimeout(() => {
-      quizSocket.send(JSON.stringify({
-        action: "submit_answer",
-        question_id: currentQuestionId,
-        answer_text: button.textContent
-      }));
-      stopTimer();
-    }, 1500);
+    stopTimer();
   });
 });
+
+function highlightUserAnswer(isCorrect) {
+  if (!lastClickedButton) return;
+  lastClickedButton.style.backgroundColor = isCorrect ? "green" : "red";
+}
 
 function resetAnswerButtons() {
   [...answerButtons].forEach((button) => {
@@ -91,7 +89,6 @@ function resetAnswerButtons() {
 function showQuestion(data) {
   resetAnswerButtons();
   currentQuestionId = data.question_id;
-  correctAnswer = data.correct_answer;
   questionText.textContent = data.question_text;
   timeLeft = data.time_limit;
   timerElement.textContent = timeLeft;

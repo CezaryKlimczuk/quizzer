@@ -1,4 +1,5 @@
 import json
+from time import sleep
 from django.core.cache import cache
 from asgiref.sync import sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
@@ -35,6 +36,8 @@ class QuizConsumer(AsyncWebsocketConsumer):
             question_id = data.get('question_id')
             user_answer = data.get('answer_text')
             await self.process_answer(question_id, user_answer)
+            # sleep 1s before sending the next question to allow the answer to be shown.
+            sleep(1.0)
             await self.send_next_question()
 
     async def change_user_count(self, delta):
@@ -88,7 +91,6 @@ class QuizConsumer(AsyncWebsocketConsumer):
                 "question_id": question.id,
                 "question_text": question.question_text,
                 "question_answers": question.answer_options,
-                "correct_answer": question.correct_answer_text,
                 "time_limit": 10
             }))
         else:
@@ -112,6 +114,11 @@ class QuizConsumer(AsyncWebsocketConsumer):
             self.score += 1
 
         await sync_to_async(question.save)()
+
+        await self.send(text_data=json.dumps({
+                "action": "answer_result",
+                "is_correct": is_correct,
+        }))
 
 
 class GlobalNotificationConsumer(AsyncWebsocketConsumer):
