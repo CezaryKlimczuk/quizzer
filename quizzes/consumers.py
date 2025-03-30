@@ -94,6 +94,16 @@ class QuizConsumer(AsyncWebsocketConsumer):
                 "time_limit": 10
             }))
         else:
+            # Upon finishing the quiz, we increment the count 
+            quiz.times_taken += 1
+
+            # And check for the high score
+            if self.score >= quiz.high_score:
+                quiz.high_score = self.score
+
+            # Saving changes to the quiz
+            await sync_to_async(quiz.save)()
+
             await self.send(text_data=json.dumps({
                 "action": "quiz_finished",
                 "score": self.score,
