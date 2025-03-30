@@ -8,11 +8,12 @@ const quizContainer = document.getElementById("quizContainer");
 const introContainer = document.getElementById("introContainer");
 const participantCounter = document.getElementById("participantCounter").querySelector("span");
 const questionText = document.getElementById("questionText");
-const submitAnswerBtn = document.getElementById("submitAnswerBtn");
 const answerButtons = document.getElementsByClassName("answer-btn");
 const timerElement = document.getElementById("timer").querySelector("span");
 const resultsContainer = document.getElementById("resultsContainer");
 const finalMessage = document.getElementById("finalMessage");
+
+let correctAnswer = null;
 
 // On page load, create the WebSocket connection
 document.addEventListener("DOMContentLoaded", () => {
@@ -50,22 +51,59 @@ startQuizBtn.addEventListener("click", () => {
   introContainer.style.display = "none";
 });
 
-answerButtons.forEach((button) => {
+[...answerButtons].forEach((button) => {
+  console.log("Adding click listeners now.")
   button.addEventListener("click", () => {
-    quizSocket.send(JSON.stringify({
-      action: "submit_answer",
-      question_id: currentQuestionId,
-      answer_text: button.textContent
-    }));
-    stopTimer();
+    // Prevent any further clicks
+    [...answerButtons].forEach(b => b.disabled = true);
+
+    // Always highlight the correct button in green
+    const correctBtn = [...answerButtons].find(btn => btn.textContent === correctAnswer);
+    if (correctBtn) {
+      correctBtn.style.backgroundColor = "green";
+    }
+
+    // If user clicked the wrong button, highlight it red
+    if (button.textContent !== correctAnswer) {
+      button.style.backgroundColor = "red";
+    }
+
+    // Wait 1.5s before sending the answer via WebSocket
+    setTimeout(() => {
+      quizSocket.send(JSON.stringify({
+        action: "submit_answer",
+        question_id: currentQuestionId,
+        answer_text: button.textContent
+      }));
+      stopTimer();
+    }, 1500);
   });
 });
 
+function resetAnswerButtons() {
+  [...answerButtons].forEach((button) => {
+    button.style.backgroundColor = "";
+    button.disabled = false;
+  });
+}
+
+
 function showQuestion(data) {
+  resetAnswerButtons();
   currentQuestionId = data.question_id;
+  correctAnswer = data.correct_answer;
   questionText.textContent = data.question_text;
   timeLeft = data.time_limit;
   timerElement.textContent = timeLeft;
+
+  console.log('Hello!!');
+
+  console.log(data.question_answers);
+
+  for (let i = 0; i < [...answerButtons].length; i++) {
+    [...answerButtons][i].textContent = data.question_answers[i] || "";
+  }
+
   startTimer();
 }
 

@@ -87,6 +87,8 @@ class QuizConsumer(AsyncWebsocketConsumer):
                 "action": "next_question",
                 "question_id": question.id,
                 "question_text": question.question_text,
+                "question_answers": question.answer_options,
+                "correct_answer": question.correct_answer_text,
                 "time_limit": 10
             }))
         else:
