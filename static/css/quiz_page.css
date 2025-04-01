@@ -59,6 +59,7 @@
   transition: background-color 0.3s, transform 0.3s;
   margin-bottom: 2rem;
 }
+
 .start-quiz-btn:hover {
   background-color: var(--color-primary-light);
   transform: scale(1.05);

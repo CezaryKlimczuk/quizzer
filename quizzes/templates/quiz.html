@@ -63,6 +63,9 @@
         <h2>Results</h2>
         <p id="finalMessage"></p>
         <!-- You could add a "Restart Quiz" button or "View Another Quiz" link here if desired -->
+        <a href="{% url 'category' quiz.category.id %}">
+          <button class="start-quiz-btn">Back to {{ quiz.category }}</button>
+        </a>
       </div>
     </div>
 
